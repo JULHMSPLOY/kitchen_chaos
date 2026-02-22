@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ef8ac7c53d081443b0bd616f3830822, type: 3}
+  m_Name: MeatBurger
+  m_EditorClassIdentifier: Assembly-CSharp::RecipeSO
+  recipeName: MeatBurger
+  kitchenObjectSOList:
+  - {fileID: 11400000, guid: 50e0a05a3685e884090ae2c0eca9398e, type: 2}
+  - {fileID: 11400000, guid: cee483e59cdbac7498e647a4a19ce642, type: 2}
