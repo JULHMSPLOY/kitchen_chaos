@@ -1,33 +1,51 @@
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using System;
 
 public class DeliveryResultUI : MonoBehaviour
 {
-    [SerializeField] private GameObject Background;
-    [SerializeField] private GameObject Icon;
+    [SerializeField] private GameObject background;
+    [SerializeField] private TextMeshProUGUI messageText;
+    [SerializeField] private Image iconImage;
 
-    private void Start()
+    private void OnEnable()
     {
-        DeliveryManager.Instance.OnRecipeCompleted += OnSuccess;
-        DeliveryManager.Instance.OnRecipeFailed += OnFail;
+        if (DeliveryManager.Instance != null)
+        {
+            DeliveryManager.Instance.OnRecipeCompleted += OnSuccess;
+        }
 
         Hide();
     }
 
-    private void OnSuccess(object sender, System.EventArgs e)
+    private void OnDisable()
     {
-        Background.SetActive(true);
-        Invoke(nameof(Hide), 1f);
+        if (DeliveryManager.Instance != null)
+        {
+            DeliveryManager.Instance.OnRecipeCompleted -= OnSuccess;
+        }
     }
 
-    private void OnFail(object sender, System.EventArgs e)
+    private void OnSuccess(object sender, EventArgs e)
     {
-        Icon.SetActive(true);
+        Debug.Log("UI RECEIVED SUCCESS");
+        background.SetActive(true);
+
+        messageText.text = "DELIVERY SUCCESS!";
+        messageText.color = Color.white;
+
+        Image bgImage = background.GetComponent<Image>();
+        bgImage.color = new Color(0.1f, 0.7f, 0.2f);
+
+        iconImage.gameObject.SetActive(true);
+
+        CancelInvoke();
         Invoke(nameof(Hide), 1f);
     }
 
     private void Hide()
     {
-        Background.SetActive(false);
-        Icon.SetActive(false);
+        background.SetActive(false);
     }
 }

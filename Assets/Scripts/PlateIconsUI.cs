@@ -4,48 +4,72 @@ using UnityEngine;
 
 public class PlateIconsUI : MonoBehaviour
 {
+    [SerializeField] private Transform iconTemplate;
 
-    [SerializeField] private PlateKitchenObject plateKitchenObject; // Reference to the plate logic [2]
-    [SerializeField] private Transform iconTemplate; // The UI element to duplicate [4]
+    private PlateKitchenObject plateKitchenObject;
 
     private void Awake()
     {
-        // Hide the template so it doesn't show up in the UI by default [5, 6]
+        // ซ่อน template ไว้ ไม่ให้โชว์
         iconTemplate.gameObject.SetActive(false);
     }
 
     private void Start()
     {
-        // Listen for when an ingredient is added to the plate [2]
+        // หา PlateKitchenObject ใน Scene ตอนเริ่มเกม
+        plateKitchenObject = FindFirstObjectByType<PlateKitchenObject>();
+
+        if (plateKitchenObject == null)
+        {
+            Debug.LogError("PlateKitchenObject not found in scene!");
+            return;
+        }
+
+        // Subscribe Event
         plateKitchenObject.OnIngredientAdded += PlateKitchenObject_OnIngredientAdded;
+
+        // อัปเดต UI ครั้งแรก
+        UpdateVisual();
+    }
+
+    private void OnDestroy()
+    {
+        // ป้องกัน error ตอน object ถูกลบ
+        if (plateKitchenObject != null)
+        {
+            plateKitchenObject.OnIngredientAdded -= PlateKitchenObject_OnIngredientAdded;
+        }
     }
 
     private void PlateKitchenObject_OnIngredientAdded(object sender, PlateKitchenObject.OnIngredientAddedEventArgs e)
     {
-        // Update the icons whenever the plate contents change [4]
         UpdateVisual();
     }
 
     private void UpdateVisual()
     {
-        // 1. Clean up old icons from previous updates [5, 7]
+        // ลบ icon เก่า
         foreach (Transform child in transform)
         {
-            if (child == iconTemplate) continue; // Don't destroy the template! [5]
+            if (child == iconTemplate) continue;
             Destroy(child.gameObject);
         }
 
-        // 2. Cycle through all ingredients currently on the plate [4]
+        if (plateKitchenObject == null) return;
+
+        // สร้าง icon ตาม ingredient บนจาน
         foreach (KitchenObjectSO kitchenObjectSO in plateKitchenObject.GetKitchenObjectSOList())
         {
-            // 3. Instantiate the template for each ingredient [8]
             Transform iconTransform = Instantiate(iconTemplate, transform);
 
-            // 4. Enable the duplicated icon and set its specific sprite [5]
             iconTransform.gameObject.SetActive(true);
 
-            // This calls a helper script on the template to set the Sprite [9]
-            iconTransform.GetComponent<PlateIconSingleUI>().SetKitchenObjectSO(kitchenObjectSO);
+            PlateIconSingleUI plateIconSingleUI = iconTransform.GetComponent<PlateIconSingleUI>();
+
+            if (plateIconSingleUI != null)
+            {
+                plateIconSingleUI.SetKitchenObjectSO(kitchenObjectSO);
+            }
         }
     }
 }

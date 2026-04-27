@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5138c9ce6f2f5140ab0a2e76e0e3da5, type: 3}
+  m_Name: Frenchfrice
+  m_EditorClassIdentifier: Assembly-CSharp::KitchenObjectSO
+  prefab: {fileID: 1398212190648367744, guid: 875f5b1727ba64a4fae58af289fa304f, type: 3}
+  sprite: {fileID: -1708482654, guid: 4c46fe79f5e659542804ba90f1e21d42, type: 3}
+  objectname: frenchfrice

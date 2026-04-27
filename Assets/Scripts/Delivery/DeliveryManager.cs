@@ -111,11 +111,38 @@ public class DeliveryManager : MonoBehaviour
                     successfulDeliveries++;
                     waitingOrderList.RemoveAt(i);
 
+                    Debug.Log("DELIVERY COMPLETED!");
+
                     OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
                     OnRecipeListChanged?.Invoke(this, EventArgs.Empty);
 
                     return true;
                 }
+            }
+        }
+
+        OnRecipeFailed?.Invoke(this, EventArgs.Empty);
+        return false;
+    }
+
+    public bool DeliverSingleItem(KitchenObjectSO kitchenObjectSO)
+    {
+        for (int i = 0; i < waitingOrderList.Count; i++)
+        {
+            RecipeSO recipeSO = waitingOrderList[i].recipeSO;
+
+            if (recipeSO.kitchenObjectSOList.Count == 1 &&
+                recipeSO.kitchenObjectSOList[0] == kitchenObjectSO)
+            {
+                successfulDeliveries++;
+                waitingOrderList.RemoveAt(i);
+
+                Debug.Log("DELIVERY COMPLETED!");
+
+                OnRecipeCompleted?.Invoke(this, EventArgs.Empty);
+                OnRecipeListChanged?.Invoke(this, EventArgs.Empty);
+
+                return true;
             }
         }
 

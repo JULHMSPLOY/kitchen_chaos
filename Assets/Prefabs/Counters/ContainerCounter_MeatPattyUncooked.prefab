@@ -98,6 +98,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 785858843733184687, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1701563556076322598, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2267794744245429517, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3145962462556893974, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4149667675132127668, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       propertyPath: m_Name
       value: ContainerCounter_MeatPattyUncooked
@@ -112,15 +128,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4149667675132127670, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 3.91
       objectReference: {fileID: 0}
     - target: {fileID: 4149667675132127670, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.00000023841858
       objectReference: {fileID: 0}
     - target: {fileID: 4149667675132127670, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 4149667675132127670, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -150,7 +166,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4665963574629893028, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4924654236576575203, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515724437385874332, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5810946436545346842, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6660240957505897758, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287553239352249960, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7966215406133555704, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -158,15 +198,29 @@ PrefabInstance:
       propertyPath: kitchenObjectSO
       value: 
       objectReference: {fileID: 11400000, guid: 48d4c12adc0a9d147a4cd825b546ca56, type: 2}
-    - target: {fileID: 9151563344311616834, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+    - target: {fileID: 8829945351443140260, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8866807576754180639, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9151563344311616834, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8799033574078206812, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
     - {fileID: 2771830153292432360, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
     - {fileID: 8158760879190688156, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
-    m_RemovedGameObjects: []
+    - {fileID: 6191584087992162498, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 8866807576754180639, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+    - {fileID: 5810946436545346842, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+    - {fileID: 4665963574629893028, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+    - {fileID: 7966215406133555704, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+    - {fileID: 5674483554706977889, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 992331246776344783, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       insertIndex: -1
@@ -174,8 +228,13 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4149667675132127668, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5529052935834236651}
+      addedObject: {fileID: 882652165653393736}
   m_SourcePrefab: {fileID: 100100000, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+--- !u!95 &301923540444005141 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 364319045668629383, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+  m_PrefabInstance: {fileID: 89781591093717138}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &935499553855850589 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 992331246776344783, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
@@ -191,7 +250,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4149667675132127668, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
   m_PrefabInstance: {fileID: 89781591093717138}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5529052935834236651
+--- !u!114 &882652165653393736
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -202,6 +261,8 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a1087a57d98a9ee4f8fe70b6935c874f, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ContainerCounter
+  m_EditorClassIdentifier: 
   kitchenObjectSO: {fileID: 11400000, guid: f8ce91790caa842a4add0a2bba74aa6b, type: 2}
   counterTopPoint: {fileID: 2031452958719006506}
+  kitchenObject: {fileID: 0}
+  animator: {fileID: 301923540444005141}

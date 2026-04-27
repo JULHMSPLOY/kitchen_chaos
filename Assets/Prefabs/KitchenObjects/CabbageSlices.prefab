@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1821101922493746524}
-  - component: {fileID: 6953421803401570531}
+  - component: {fileID: 3575395877924711125}
   m_Layer: 0
   m_Name: CabbageSlices
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 5595942220768768585}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &6953421803401570531
+--- !u!114 &3575395877924711125
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5649574244871304538}
-  - component: {fileID: 4577332097216097227}
+  - component: {fileID: 6391912878297416472}
   m_Layer: 0
   m_Name: CleanPlate
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 4688208535127096118}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4577332097216097227
+--- !u!114 &6391912878297416472
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -44,7 +44,7 @@ MonoBehaviour:
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a23c67b5f5edd444489a3ffd470c30f5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::KitchenObject
+  m_EditorClassIdentifier: 
   kitchenobject: {fileID: 11400000, guid: fd5bf2686fbb742cabe2e9767aa8051c, type: 2}
 --- !u!1001 &8495429204602318262
 PrefabInstance:

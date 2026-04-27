@@ -3,27 +3,15 @@ using UnityEngine;
 
 public class DeliveryCounter : BaseCounter, IInteractable
 {
-    [SerializeField] private GameObject highlight;
     public event EventHandler OnPlatePlaced;
+
+    [SerializeField] private GameObject deliveryResultUI;
 
     private void Start()
     {
-        highlight.SetActive(false);
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.GetComponent<Player>() != null)
+        if (deliveryResultUI != null)
         {
-            highlight.SetActive(true);
-        }
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.GetComponent<Player>() != null)
-        {
-            highlight.SetActive(false);
+            deliveryResultUI.SetActive(false);
         }
     }
 
@@ -31,23 +19,43 @@ public class DeliveryCounter : BaseCounter, IInteractable
     {
         if (!player.HasKitchenObject()) return;
 
-        if (player.GetKitchenObject() is PlateKitchenObject plate)
+        KitchenObject kitchenObject = player.GetKitchenObject();
+        bool isCorrect = false;
+
+        // ถ้าเป็น Plate
+        if (kitchenObject is PlateKitchenObject plate)
         {
-            // 🔥 เช็คผลก่อน
-            bool isCorrect = DeliveryManager.Instance.DeliverRecipe(plate);
+            isCorrect = DeliveryManager.Instance.DeliverRecipe(plate);
+        }
+        else
+        {
+            // ถ้าเป็นอาหารธรรมดา → ให้ DeliveryManager ตรวจตรง ๆ
+            isCorrect = DeliveryManager.Instance.DeliverSingleItem(kitchenObject.GetKitchenObjectSO());
+        }
 
-            if (isCorrect)
-            {
-                // ✅ ส่งถูก → ค่อยยิง Event
-                OnPlatePlaced?.Invoke(this, EventArgs.Empty);
-            }
-            else
-            {
-                // ❌ ส่งผิด → ไม่ต้องยิง Event
-                // (ถ้าจะให้ลูกศรหาย คุมใน Arrow แทน)
-            }
+        if (isCorrect)
+        {
+            OnPlatePlaced?.Invoke(this, EventArgs.Empty);
+            ShowDeliverySuccess();
+        }
 
-            player.GetKitchenObject().DestroySelf();
+        kitchenObject.DestroySelf();
+    }
+
+    private void ShowDeliverySuccess()
+    {
+        if (deliveryResultUI != null)
+        {
+            deliveryResultUI.SetActive(true);
+            Invoke(nameof(HideDeliveryResult), 2f);
+        }
+    }
+
+    private void HideDeliveryResult()
+    {
+        if (deliveryResultUI != null)
+        {
+            deliveryResultUI.SetActive(false);
         }
     }
 }

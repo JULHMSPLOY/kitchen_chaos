@@ -1,25 +1,22 @@
 using System;
 using UnityEngine;
-using System.Linq;
 
 public class CuttingCounter : MonoBehaviour, IKitchenObjectParent, IInteractable
 {
     [SerializeField] private Transform counterTopPoint;
     [SerializeField] private CuttingRecipeSO[] cuttingRecipeSOArray;
-    [SerializeField] private KitchenObjectSO breadKitchenObjectSO;
 
     private KitchenObject kitchenObject;
 
-    private float cuttingProcess;
-    public float cuttingSpeed = 5f;
-    public float knifeSpeed = 0.2f;
+    private float cuttingProgress;
+    [SerializeField] private float cuttingSpeed = 1f;
+    [SerializeField] private float knifeSpeed = 0.2f;
+
     private bool isCutting = false;
 
     private Animator animator;
     private ProcessBar processBar;
-    private float timer = 0f;
-
-    private readonly string[] cuttableObjects = { "Tomato", "Cheese", "Cabbage" };
+    private float knifeTimer = 0f;
 
     private void Awake()
     {
@@ -32,89 +29,116 @@ public class CuttingCounter : MonoBehaviour, IKitchenObjectParent, IInteractable
         if (!HasKitchenObject()) return;
         if (!isCutting) return;
 
-        cuttingProcess += cuttingSpeed * Time.deltaTime;
-        Cutting_FX(Time.deltaTime);
+        CuttingRecipeSO recipe =
+            GetCuttingRecipeWithInput(kitchenObject.GetKitchenObjectSO());
 
-        string objectName = kitchenObject.GetKitchenObjectname();
-        int index = Array.IndexOf(cuttableObjects, objectName);
+        if (recipe == null)
+        {
+            StopCutting();
+            return;
+        }
 
-        if (index < 0 || index >= cuttingRecipeSOArray.Length) return;
+        // เพิ่ม progress
+        cuttingProgress += cuttingSpeed * Time.deltaTime;
 
-        int cuttingMax = cuttingRecipeSOArray[index].cutCount;
+        PlayCutFX(Time.deltaTime);
 
         if (processBar != null)
         {
-            float percent = cuttingProcess / cuttingMax;
+            float percent = cuttingProgress / recipe.cutCount;
             processBar.CuttingCounter_OnProcessChanged(percent);
         }
 
-        if (cuttingProcess >= cuttingMax)
+        // เสร็จแล้ว
+        if (cuttingProgress >= recipe.cutCount)
         {
-            KitchenObjectSO outputSO = cuttingRecipeSOArray[index].to;
-
-            kitchenObject.DestroySelf();
-
-            KitchenObject.SpawnKitchenObject(outputSO, this);
-
-            if (processBar != null)
-                processBar.CuttingCounter_OnProcessChanged(0f);
-
-            cuttingProcess = 0f;
-            isCutting = false;
+            CompleteCut(recipe);
         }
     }
 
-    private void Cutting_FX(float duration)
+    private void CompleteCut(CuttingRecipeSO recipe)
     {
-        timer += duration;
+        KitchenObjectSO outputSO = recipe.to;
 
-        if (timer >= knifeSpeed)
+        // เก็บตัวเก่าไว้
+        KitchenObject oldObject = kitchenObject;
+
+        oldObject.DestroySelf();
+
+        // Spawn ตัวใหม่
+        KitchenObject newObject =
+            KitchenObject.SpawnKitchenObject(outputSO, this);
+
+        // อัปเดต reference ชัดเจน
+        kitchenObject = newObject;
+
+        StopCutting();
+    }
+
+    private void StopCutting()
+    {
+        cuttingProgress = 0f;
+        knifeTimer = 0f;
+        isCutting = false;
+
+        if (processBar != null)
+            processBar.CuttingCounter_OnProcessChanged(0f);
+    }
+
+    private void PlayCutFX(float delta)
+    {
+        knifeTimer += delta;
+
+        if (knifeTimer >= knifeSpeed)
         {
             if (animator != null)
                 animator.SetTrigger("Cut");
 
-            AudioManager.Instance.PlaySound(
-                AudioManager.Instance.GetAudioClipRefsSO().chop,
-                transform.position,
-                0.8f
-            );
+            if (AudioManager.Instance != null)
+            {
+                AudioManager.Instance.PlaySound(
+                    AudioManager.Instance.GetAudioClipRefsSO().chop,
+                    transform.position,
+                    0.8f
+                );
+            }
 
-            timer = 0f;
+            knifeTimer = 0f;
         }
     }
 
     public void Interact(Player player)
     {
-        // ===== Player ถือของ =====
+        // ผู้เล่นถือของอยู่
         if (player.HasKitchenObject())
         {
-            // ===== Counter มีของ (ผักหั่นแล้ว) =====
+            // Counter มีของอยู่
             if (HasKitchenObject())
             {
-                // ถ้า Player ถือ Plate
+                // ถ้า player ถือจาน
                 if (player.GetKitchenObject() is PlateKitchenObject plate)
                 {
                     if (plate.TryAddIngredient(kitchenObject.GetKitchenObjectSO()))
                     {
                         kitchenObject.DestroySelf();
-                        isCutting = false;
+                        StopCutting();
                     }
                 }
             }
             else
             {
-                // ===== วางของลงเพื่อหั่น =====
+                // วางของลงเพื่อหั่น
                 KitchenObject playerObject = player.GetKitchenObject();
 
-                if (!cuttableObjects.Contains(playerObject.GetKitchenObjectname()))
-                {
-                    return;
-                }
+                CuttingRecipeSO recipe =
+                    GetCuttingRecipeWithInput(playerObject.GetKitchenObjectSO());
+
+                if (recipe == null) return;
 
                 playerObject.SetKitchenObjectParent(this);
 
-                cuttingProcess = 0f;
-                timer = 0f;
+                cuttingProgress = 0f;
+                knifeTimer = 0f;
                 isCutting = true;
 
                 if (processBar != null)
@@ -123,12 +147,24 @@ public class CuttingCounter : MonoBehaviour, IKitchenObjectParent, IInteractable
         }
         else
         {
-            // ===== Player ไม่ถืออะไร =====
+            // ผู้เล่นมือว่าง → หยิบของขึ้น
             if (HasKitchenObject())
             {
                 kitchenObject.SetKitchenObjectParent(player);
+                StopCutting();
             }
         }
+    }
+
+    private CuttingRecipeSO GetCuttingRecipeWithInput(KitchenObjectSO inputSO)
+    {
+        foreach (CuttingRecipeSO recipe in cuttingRecipeSOArray)
+        {
+            if (recipe.from == inputSO)
+                return recipe;
+        }
+
+        return null;
     }
 
     // ===== IKitchenObjectParent =====

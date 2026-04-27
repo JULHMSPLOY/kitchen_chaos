@@ -98,6 +98,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 785858843733184687, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1701563556076322598, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4149667675132127668, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       propertyPath: m_Name
       value: ContainerCounter_Bread
@@ -112,15 +120,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4149667675132127670, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 2.23
       objectReference: {fileID: 0}
     - target: {fileID: 4149667675132127670, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.00000047683716
       objectReference: {fileID: 0}
     - target: {fileID: 4149667675132127670, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.64
       objectReference: {fileID: 0}
     - target: {fileID: 4149667675132127670, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       propertyPath: m_LocalRotation.w
@@ -150,7 +158,31 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4665963574629893028, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4924654236576575203, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4924654236576575203, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_TagString
+      value: Container
+      objectReference: {fileID: 0}
+    - target: {fileID: 5515724437385874332, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5810946436545346842, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7287553239352249960, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7966215406133555704, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -158,15 +190,29 @@ PrefabInstance:
       propertyPath: kitchenObjectSO
       value: 
       objectReference: {fileID: 11400000, guid: 18eb2900d2aba8f4f9edb0adc47c7782, type: 2}
-    - target: {fileID: 9151563344311616834, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+    - target: {fileID: 8829945351443140260, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8866807576754180639, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9151563344311616834, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8158760879190688156, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
     - {fileID: 8799033574078206812, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
     - {fileID: 2771830153292432360, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
-    m_RemovedGameObjects: []
+    - {fileID: 6191584087992162498, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 8866807576754180639, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+    - {fileID: 5810946436545346842, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+    - {fileID: 4665963574629893028, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+    - {fileID: 7966215406133555704, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+    - {fileID: 5674483554706977889, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 992331246776344783, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       insertIndex: -1
@@ -174,8 +220,13 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4149667675132127668, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 5108623068301764167}
+      addedObject: {fileID: 6975600948870137899}
   m_SourcePrefab: {fileID: 100100000, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+--- !u!95 &321484950015980213 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 364319045668629383, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
+  m_PrefabInstance: {fileID: 105965322324597042}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &917906275029039613 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 992331246776344783, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
@@ -191,7 +242,7 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 4149667675132127668, guid: 6b93a379ddc445147ae9ec933fba9be6, type: 3}
   m_PrefabInstance: {fileID: 105965322324597042}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &5108623068301764167
+--- !u!114 &6975600948870137899
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,3 +256,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ContainerCounter
   kitchenObjectSO: {fileID: 11400000, guid: 50e0a05a3685e884090ae2c0eca9398e, type: 2}
   counterTopPoint: {fileID: 2051295847399073418}
+  kitchenObject: {fileID: 0}
+  animator: {fileID: 321484950015980213}

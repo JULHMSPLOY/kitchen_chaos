@@ -5,7 +5,19 @@ using UnityEngine.UIElements;
 public class StoveCounter : MonoBehaviour, IKitchenObjectParent, IInteractable
 {
     [SerializeField] private Transform counterTopPoint;
-    [SerializeField] private KitchenObjectSO[] meatObjectOS;
+
+    [Header("Meat Objects")]
+    [SerializeField] private KitchenObjectSO[] meatObjectSO;
+    // 0 Raw
+    // 1 Cooked
+    // 2 Burned
+
+    [Header("Egg Objects")]
+    [SerializeField] private KitchenObjectSO[] eggObjectSO;
+    // 0 Raw
+    // 1 Fried
+    // 2 Burned
+
     [SerializeField] private KitchenObjectSO plateSO;
 
     public float fryingSpeed = 1f;
@@ -16,9 +28,11 @@ public class StoveCounter : MonoBehaviour, IKitchenObjectParent, IInteractable
     private Animator animator;
     private FryingBar processBar;
     private Transform warningUI;
+
     private AudioSource sizzlingAudioSource;
 
     private KitchenObject kitchenObject;
+
     private StoveState state = StoveState.Idle;
 
     private enum StoveState
@@ -61,27 +75,56 @@ public class StoveCounter : MonoBehaviour, IKitchenObjectParent, IInteractable
 
         if (fryingProcess >= fryingMax)
         {
-            kitchenObject.DestroySelf();
+            KitchenObjectSO currentSO = kitchenObject.GetKitchenObjectSO();
 
-            if (state == StoveState.Frying)
+            // =========================
+            // MEAT
+            // =========================
+            if (currentSO == meatObjectSO[0] && state == StoveState.Frying)
             {
-                KitchenObject.SpawnKitchenObject(meatObjectOS[1], this);
+                kitchenObject.DestroySelf();
+                KitchenObject.SpawnKitchenObject(meatObjectSO[1], this);
 
-                sizzlingAudioSource.Stop();
                 state = StoveState.Fried;
-                fryingProcess = 0f;
 
                 animator?.SetBool("IsFlashing", true);
                 warningUI?.gameObject.SetActive(true);
             }
-            else if (state == StoveState.Fried)
+            else if (currentSO == meatObjectSO[1] && state == StoveState.Fried)
             {
-                KitchenObject.SpawnKitchenObject(meatObjectOS[2], this);
+                kitchenObject.DestroySelf();
+                KitchenObject.SpawnKitchenObject(meatObjectSO[2], this);
+
                 state = StoveState.Burned;
 
                 animator?.SetBool("IsFlashing", false);
                 warningUI?.gameObject.SetActive(false);
             }
+
+            // =========================
+            // EGG
+            // =========================
+            else if (currentSO == eggObjectSO[0] && state == StoveState.Frying)
+            {
+                kitchenObject.DestroySelf();
+                KitchenObject.SpawnKitchenObject(eggObjectSO[1], this);
+
+                state = StoveState.Fried;
+
+                animator?.SetBool("IsFlashing", true);
+                warningUI?.gameObject.SetActive(true);
+            }
+            else if (currentSO == eggObjectSO[1] && state == StoveState.Fried)
+            {
+                kitchenObject.DestroySelf();
+                KitchenObject.SpawnKitchenObject(eggObjectSO[2], this);
+
+                state = StoveState.Burned;
+
+                animator?.SetBool("IsFlashing", false);
+                warningUI?.gameObject.SetActive(false);
+            }
+
             fryingProcess = 0f;
             processBar?.FryingCounter_OnProcessChanged(0f);
         }
@@ -95,38 +138,44 @@ public class StoveCounter : MonoBehaviour, IKitchenObjectParent, IInteractable
             playerObject = player.GetKitchenObject();
 
         // =========================
-        // 🔹 เตาว่าง → วางเนื้อดิบ
+        // เตาว่าง → วางของลงทอด
         // =========================
         if (!HasKitchenObject())
         {
             if (!player.HasKitchenObject()) return;
 
-            if (playerObject.GetKitchenObjectSO() == meatObjectOS[0])
+            KitchenObjectSO playerSO = playerObject.GetKitchenObjectSO();
+
+            if (playerSO == meatObjectSO[0] || playerSO == eggObjectSO[0])
             {
                 playerObject.SetKitchenObjectParent(this);
 
                 fryingProcess = 0f;
                 state = StoveState.Frying;
+
                 sizzlingAudioSource.Play();
 
                 processBar?.FryingCounter_OnProcessChanged(0f);
             }
+
             return;
         }
 
         // =========================
-        // 🔹 เตามีของอยู่
+        // Player มือว่าง → หยิบขึ้น
         // =========================
-
-        // 🔹 กรณี Player มือว่าง → หยิบขึ้นมา
         if (!player.HasKitchenObject())
         {
             kitchenObject.SetKitchenObjectParent(player);
+
             ResetStove();
+
             return;
         }
 
-        // 🔹 กรณี Player ถือ Plate → ใส่ลงจาน
+        // =========================
+        // ใส่ลง Plate
+        // =========================
         if (playerObject.GetKitchenObjectSO() == plateSO)
         {
             PlateKitchenObject plate =
@@ -136,6 +185,7 @@ public class StoveCounter : MonoBehaviour, IKitchenObjectParent, IInteractable
                 plate.TryAddIngredient(kitchenObject.GetKitchenObjectSO()))
             {
                 kitchenObject.DestroySelf();
+
                 ResetStove();
             }
         }
@@ -144,7 +194,9 @@ public class StoveCounter : MonoBehaviour, IKitchenObjectParent, IInteractable
     private void ResetStove()
     {
         sizzlingAudioSource.Stop();
+
         state = StoveState.Idle;
+
         fryingProcess = 0f;
 
         if (processBar != null)

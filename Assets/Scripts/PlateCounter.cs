@@ -4,6 +4,7 @@ public class PlateCounter : MonoBehaviour, IKitchenObjectParent, IInteractable
 {
     [SerializeField] private KitchenObjectSO plateKitchenObjectSO;
     [SerializeField] private Transform counterTopPoint;
+
     private KitchenObject kitchenObject;
 
     private void Start()
@@ -13,16 +14,19 @@ public class PlateCounter : MonoBehaviour, IKitchenObjectParent, IInteractable
 
     private void SpawnPlate()
     {
+        if (HasKitchenObject()) return;
+
         KitchenObject.SpawnKitchenObject(plateKitchenObjectSO, this);
     }
 
     public void Interact(Player player)
     {
-        // ถ้ามีจานบนโต๊ะ และ player ไม่มีของ
-        if (HasKitchenObject() && !player.HasKitchenObject())
+        if (!HasKitchenObject()) return;
+
+        if (!player.HasKitchenObject())
         {
             kitchenObject.SetKitchenObjectParent(player);
-            SpawnPlate(); // สร้างจานใหม่โชว์บนโต๊ะ
+            SpawnPlate();
         }
     }
 

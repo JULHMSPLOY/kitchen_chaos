@@ -29,8 +29,7 @@ public class KitchenObject : MonoBehaviour
         IKitchenObjectParent kitchenObjectParent)
     {
         Transform kitchenObjectTransform = Instantiate(
-            kitchenObjectSO.prefab,
-            kitchenObjectParent.GetKitchenObjectFollowTransform()
+        kitchenObjectSO.prefab
         );
 
         KitchenObject kitchenObject =
